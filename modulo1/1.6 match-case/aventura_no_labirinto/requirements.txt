@@ -1,0 +1,4 @@
+rich
+pynput
+pdoc
+playsound3
