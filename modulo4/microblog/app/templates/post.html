@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Criar Post - Microblog{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card write-post-card">
+    <h2>Nova Publicação</h2>
+    <p class="auth-subtitle">Compartilhe o que está pensando com o mundo!</p>
+    
+    <form action="{{ url_for('post') }}" method="POST" class="auth-form" id="create-post-form">
+      <div class="form-group">
+        <label for="body">O que você está pensando?</label>
+        <textarea id="body" name="body" rows="5" placeholder="Escreva aqui seu post... (máx. 280 caracteres)" maxlength="280" required></textarea>
+        <div class="char-count">
+          <span id="chars-used">0</span>/280
+        </div>
+      </div>
+      
+      <button type="submit" class="btn-primary auth-submit" id="btn-post-submit">Publicar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const textarea = document.getElementById('body');
+  const countSpan = document.getElementById('chars-used');
+  if (textarea && countSpan) {
+    textarea.addEventListener('input', () => {
+      countSpan.textContent = textarea.value.length;
+    });
+  }
+</script>
+{% endblock %}

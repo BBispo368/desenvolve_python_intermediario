@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Página Inicial - Microblog{% endblock %}
+
+{% block content %}
+<div class="feed-layout">
+  
+  <!-- Profile Panel -->
+  {% if user %}
+  <aside class="profile-card">
+    <div class="profile-cover"></div>
+    <div class="profile-avatar-container">
+      {% if user.foto %}
+        <img src="{{ user.foto }}" alt="Foto de perfil de @{{ user.username }}" class="profile-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="profile-avatar-placeholder" style="display:none;">{{ user.username[0] | upper }}</div>
+      {% else %}
+        <div class="profile-avatar-placeholder">{{ user.username[0] | upper }}</div>
+      {% endif %}
+    </div>
+    
+    <div class="profile-details">
+      <h2>@{{ user.username }}</h2>
+      <p class="profile-bio">{% if user.bio %}{{ user.bio }}{% else %}Sem biografia cadastrada. Adicione uma no cadastro!{% endif %}</p>
+      
+      {% if user.last_login %}
+        <div class="profile-meta">
+          <span>Acesso: {{ user.last_login.strftime('%d/%m/%Y às %H:%M') }}</span>
+        </div>
+      {% endif %}
+      
+      <a href="{{ url_for('post') }}" class="btn-primary" id="btn-write-post-main">Escrever Post</a>
+    </div>
+  </aside>
+  {% endif %}
+
+  <!-- Feed Section -->
+  <section class="posts-section">
+    <div class="section-header">
+      <h2>Linha do Tempo</h2>
+    </div>
+
+    {% if posts %}
+      <div class="posts-list">
+        {% for post in posts %}
+          <article class="post-card-item">
+            <div class="post-header">
+              {% if post.author.foto %}
+                <img src="{{ post.author.foto }}" alt="Foto de @{{ post.author.username }}" class="post-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="post-avatar-placeholder" style="display:none;">{{ post.author.username[0] | upper }}</div>
+              {% else %}
+                <div class="post-avatar-placeholder">{{ post.author.username[0] | upper }}</div>
+              {% endif %}
+              <div class="post-user-info">
+                <span class="post-author-name">@{{ post.author.username }}</span>
+                <span class="post-timestamp">{{ post.timestamp.strftime('%d/%m/%Y às %H:%M') }}</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>{{ post.body }}</p>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-feed">
+        <p>Ainda não há nenhum post na rede social.</p>
+        <a href="{{ url_for('post') }}" class="btn-secondary" id="btn-write-first-post">Criar o primeiro post!</a>
+      </div>
+    {% endif %}
+  </section>
+
+</div>
+{% endblock %}

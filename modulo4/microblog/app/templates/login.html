@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Entrar - Microblog{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Bem-vindo de volta!</h2>
+    <p class="auth-subtitle">Faça login para ver as novidades e postar.</p>
+    
+    <form action="{{ url_for('login') }}" method="POST" class="auth-form" id="login-form">
+      <div class="form-group">
+        <label for="username">Usuário</label>
+        <input type="text" id="username" name="username" placeholder="Digite seu usuário" required autocomplete="username">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Digite sua senha" required autocomplete="current-password">
+      </div>
+      
+      <button type="submit" class="btn-primary auth-submit" id="btn-login-submit">Entrar</button>
+    </form>
+    
+    <div class="auth-footer">
+      <p>Não tem uma conta? <a href="{{ url_for('cadastro') }}" id="link-signup">Cadastre-se</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

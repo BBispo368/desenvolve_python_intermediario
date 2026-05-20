@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Microblog{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav class="navbar" id="main-nav">
+    <div class="nav-container">
+      <a href="{{ url_for('index') }}" class="nav-logo" id="logo-link">✨ Microblog</a>
+      <div class="nav-links">
+        {% if current_user.is_authenticated %}
+          <span class="welcome-msg">Olá, @{{ current_user.username }}!</span>
+          <a href="{{ url_for('index') }}" class="nav-item" id="nav-home">Feed</a>
+          <a href="{{ url_for('post') }}" class="nav-item btn-primary-nav" id="nav-write-post">Escrever Post</a>
+          <a href="{{ url_for('logout') }}" class="nav-item nav-logout" id="nav-logout-btn">Sair</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="nav-item" id="nav-login-btn">Entrar</a>
+          <a href="{{ url_for('cadastro') }}" class="nav-item btn-primary-nav" id="nav-signup-btn">Cadastrar</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <div class="flash-message">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="content-wrapper">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Microblog. Feito para Breno Bispo.</p>
+  </footer>
+</body>
+</html>

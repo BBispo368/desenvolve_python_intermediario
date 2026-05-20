@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Criar Conta - Microblog{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Criar nova conta</h2>
+    <p class="auth-subtitle">Junte-se à nossa comunidade de microbloggers!</p>
+    
+    <form action="{{ url_for('cadastro') }}" method="POST" class="auth-form" id="signup-form">
+      <div class="form-group">
+        <label for="username">Usuário</label>
+        <input type="text" id="username" name="username" placeholder="Escolha um nome de usuário" required autocomplete="username">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Crie uma senha" required autocomplete="new-password">
+      </div>
+
+      <div class="form-group">
+        <label for="foto">Foto de Perfil (URL)</label>
+        <input type="url" id="foto" name="foto" placeholder="https://exemplo.com/sua-foto.jpg">
+        <small class="form-help">Insira a URL de uma imagem para o seu avatar.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="bio">Biografia</label>
+        <textarea id="bio" name="bio" rows="3" placeholder="Fale um pouco sobre você..." maxlength="250"></textarea>
+      </div>
+
+      <div class="form-checkbox">
+        <input type="checkbox" id="remember" name="remember" checked>
+        <label for="remember">Lembrar-me após o cadastro</label>
+      </div>
+      
+      <button type="submit" class="btn-primary auth-submit" id="btn-signup-submit">Cadastrar</button>
+    </form>
+    
+    <div class="auth-footer">
+      <p>Já tem uma conta? <a href="{{ url_for('login') }}" id="link-login">Faça Login</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
